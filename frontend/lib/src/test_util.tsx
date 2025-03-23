@@ -1,0 +1,118 @@
+/**
+ * Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2025)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* eslint-disable import/no-extraneous-dependencies */
+import React, { FC, PropsWithChildren, ReactElement } from "react"
+
+import { Vector } from "apache-arrow"
+import {
+  render as reactTestingLibraryRender,
+  RenderOptions,
+  RenderResult,
+} from "@testing-library/react"
+
+/* eslint-enable */
+import ThemeProvider from "./components/core/ThemeProvider"
+import { baseTheme } from "./theme"
+import { mockTheme } from "./mocks/mockTheme"
+import { LibContext, LibContextProps } from "./components/core/LibContext"
+import { WindowDimensionsProvider } from "./components/shared/WindowDimensions/Provider"
+
+export const TestAppWrapper: FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <ThemeProvider theme={mockTheme.emotion}>
+      <WindowDimensionsProvider>{children}</WindowDimensionsProvider>
+    </ThemeProvider>
+  )
+}
+
+/**
+ * Use react-testing-library to render a ReactElement. The element will be
+ * wrapped in our ThemeProvider.
+ */
+export function render(
+  ui: ReactElement,
+  options?: Omit<RenderOptions, "queries">
+): RenderResult {
+  return reactTestingLibraryRender(ui, {
+    wrapper: ({ children }) => <TestAppWrapper>{children}</TestAppWrapper>,
+    ...options,
+  })
+}
+
+export function mockWindowLocation(hostname: string): void {
+  // Mock window.location by creating a new object
+  // Source: https://www.benmvp.com/blog/mocking-window-location-methods-jest-jsdom/
+  // @ts-expect-error
+  delete window.location
+
+  // @ts-expect-error
+  window.location = {
+    assign: vi.fn(),
+    hostname: hostname,
+  }
+}
+
+/**
+ * Use react-testing-library to render a ReactElement. The element will be
+ * wrapped in our LibContext.Provider.
+ */
+export const customRenderLibContext = (
+  component: ReactElement,
+  overrideLibContextProps: Partial<LibContextProps>
+): RenderResult => {
+  const defaultLibContextProps = {
+    isFullScreen: false,
+    setFullScreen: vi.fn(),
+    addScriptFinishedHandler: vi.fn(),
+    removeScriptFinishedHandler: vi.fn(),
+    activeTheme: baseTheme,
+    setTheme: vi.fn(),
+    availableThemes: [],
+    addThemes: vi.fn(),
+    onPageChange: vi.fn(),
+    currentPageScriptHash: "",
+    libConfig: {},
+    fragmentIdsThisRun: [],
+    locale: "en-US",
+  }
+
+  return reactTestingLibraryRender(component, {
+    wrapper: ({ children }) => (
+      <ThemeProvider theme={baseTheme.emotion}>
+        <WindowDimensionsProvider>
+          <LibContext.Provider
+            value={{ ...defaultLibContextProps, ...overrideLibContextProps }}
+          >
+            {children}
+          </LibContext.Provider>
+        </WindowDimensionsProvider>
+      </ThemeProvider>
+    ),
+  })
+}
+
+export function arrayFromVector(vector: any): any {
+  if (Array.isArray(vector)) {
+    return vector.map(arrayFromVector)
+  }
+
+  if (vector instanceof Vector) {
+    return Array.from(vector)
+  }
+
+  return vector
+}
