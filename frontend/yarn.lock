@@ -1254,6 +1254,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@glideapps/glide-data-grid@npm:6.0.4-alpha11":
+  version: 6.0.4-alpha11
+  resolution: "@glideapps/glide-data-grid@npm:6.0.4-alpha11"
+  dependencies:
+    "@linaria/react": "npm:^4.5.4"
+    canvas-hypertxt: "npm:^1.0.3"
+    react-number-format: "npm:^5.4.4"
+  peerDependencies:
+    lodash: ^4.17.19
+    marked: ^4.0.10
+    react: ^16.12.0 || 17.x || 18.x || 19.x
+    react-dom: ^16.12.0 || 17.x || 18.x || 19.x
+    react-responsive-carousel: ^3.2.7
+  checksum: 10c0/60e335ea1cf82a70810da89fd7df98d4360501aa097b8d86558693f1f0a29ce4b06510235efd62492d38d5e8245d67434f36e1420a2c598c88434e93a57889f6
+  languageName: node
+  linkType: hard
+
 "@glideapps/glide-data-grid@npm:6.0.4-alpha8":
   version: 6.0.4-alpha8
   resolution: "@glideapps/glide-data-grid@npm:6.0.4-alpha8"
@@ -1418,7 +1435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@linaria/react@npm:^4.5.3":
+"@linaria/react@npm:^4.5.3, @linaria/react@npm:^4.5.4":
   version: 4.5.4
   resolution: "@linaria/react@npm:4.5.4"
   dependencies:
@@ -2945,7 +2962,7 @@ __metadata:
     "@emotion/is-prop-valid": "npm:^1.2.0"
     "@emotion/react": "npm:^11.13.5"
     "@emotion/styled": "npm:^11.13.5"
-    "@glideapps/glide-data-grid": "npm:6.0.4-alpha8"
+    "@glideapps/glide-data-grid": "npm:6.0.4-alpha11"
     "@glideapps/glide-data-grid-cells": "npm:6.0.4-alpha8"
     "@glideapps/glide-data-grid-source": "npm:6.0.4-alpha8"
     "@loaders.gl/core": "npm:^4.3.3"
@@ -16109,6 +16126,16 @@ __metadata:
     react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/5e0500156added2f4dc5ecc72bee0b59545bc1f2c05a059a3a321a014b9e6519a5b4b8b0fa32dfede240ce4b501c1c742deeb0f02d1bfb534b46269d2faae50a
+  languageName: node
+  linkType: hard
+
+"react-number-format@npm:^5.4.4":
+  version: 5.4.4
+  resolution: "react-number-format@npm:5.4.4"
+  peerDependencies:
+    react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/e55cd16d9f7379a717e77d519db06ed455cc2df9842cd23499b60bc2ba1179df580742e27867a4ae84e0d308b18c0773b7e8943f9162e853f97bd194d15b0de7
   languageName: node
   linkType: hard
 
